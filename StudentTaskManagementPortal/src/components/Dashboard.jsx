@@ -1,48 +1,64 @@
 import StatCard from "./StatCard";
 import TaskCard from "./TaskCard";
 import AddTask from "./AddTask";
-import {useState} from "react";
-function Dashboard(){
-    const [tasks,setTasks] = useState([{id:1, title:"Learn React",description:"Understanding Components",status:"Completed"},
-                {id:2, title:"Learn JavaScript",description:"Understanding Variables,Functions",status:"Pending"},
-                {id:3, title:"Learn MongoDB",description:"Understanding Databases",status:"Pending"},
-                {id:4, title:"Learn NodeJs",description:"Understanding Connections",status:"Pending"}])
 
-function toggletask(id){
-        setTasks((currentTasks) =>
-            currentTasks.map((task)=>{
+function Dashboard(props) {
+
+    function toggleTask(id){
+        props.setTasks(
+            props.tasks.map((task) => {
                 if(task.id === id){
-                    return {...task, status: task.status === "Completed" ? "Pending" : "Completed"};
+                    return {...task, 
+                        status: task.status === "Completed" 
+                                    ? "Pending" 
+                                    : "Completed"
+                    };
                 }
                 return task;
             })
-        )
+        );
     }
 
-function addTask(newTask){
-    setTasks([...tasks,newTask]);
-}
+    function addTask(newTask){
+        props.setTasks([...props.tasks, newTask]);
+    }
 
-    return( 
+    function deleteTask(id){
+        props.setTasks(
+            props.tasks.filter((task)=>task.id !==id)
+        );
+    }
+
+    return (
         <main>
-            <div className="stat-container">
-                <StatCard title="Total tasks" value="10"/>
+        
+            <div className="stats-container">
+                <StatCard title="Total Tasks" value="10"/>
                 <StatCard title="Completed" value="6"/>
-                <StatCard title="Pending" value="4"/> 
+                <StatCard title="Pending" value="4"/>
+                
             </div>
 
-
-            <AddTask   onAddTask={addTask}/>
-
+            <AddTask  onAddTask={addTask}/>
 
             <h2>Recent Tasks</h2>
 
-                <div className="task-container">
-                    {tasks.map((tasks)=>(<TaskCard key={tasks.id} title={tasks.title} description={tasks.description} status={tasks.status} onToggle={()=>toggletask(tasks.id)}/>))}
-                </div>
+            <div className="tasks-container">
+                {props.tasks.map((task)=>(
+                    <TaskCard 
+                        key={task.id} 
+                        id ={task.id}
+                        title={task.title} 
+                        description={task.description} 
+                        status={task.status}
+                        onToggle={()=>toggleTask(task.id)} 
+                        onDelete={()=>deleteTask(task.id)}
+                    />
+                ))};
+            </div>
+
         </main>
-
-    )
-
+    );
 }
-export default Dashboard
+
+export default Dashboard;

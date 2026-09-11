@@ -1,34 +1,42 @@
 import { useState } from "react";
 
 function AddTask(props){
-    const [title, setTitle] = useState("")
-    const [description , setDescription] = useState("")
-
+    const [title, setTitle] = useState("");
+    const[description, setDescription] = useState("");
+    
     function handleSubmit(e){
-        e.preventDefault()
-        const newTask={
-            id:Date.now(), title: title, description: description , status : "Pending"
-        }
-        console.log("Object: ",newTask)
-        props.onAddTask(newTask)
+        e.preventDefault();
+        const newTask = {
+            id:Date.now(),
+            title: title,
+            description: description,
+            status: "Pending"
+        };
+        console.log("object:", newTask);
+        props.onAddTask(newTask);
     }
-
-    return(
+    
+    return (
         <div>
-            <h2>Add Task: </h2>
+            <h2>Add Task</h2>
             <form onSubmit={handleSubmit}>
                 <label>Add Title: </label>
-                <input type="text" value={title} onChange={(e)=>setTitle(e.target.value)} />
-                
+                <input 
+                    type="text" 
+                    value={title}
+                    onChange={(e)=>setTitle(e.target.value)}
+                />
                 <br /><br />
                 <label>Add Description: </label>
-                <input type="text" value={description} onChange={(e)=>setDescription(e.target.value)} />
+                <input 
+                    type="text" 
+                    value={description}
+                    onChange={(e)=>setDescription(e.target.value)}
+                />
                 <br /><br />
-                <button type ="submit"> Add Task! </button>
+                <button type="submit">Add Task!</button>
             </form>
-            
         </div>
-
     );
 }
 export default AddTask;
