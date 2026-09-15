@@ -12,7 +12,7 @@ function Dashboard(props) {
                         status: task.status === "Completed" 
                                     ? "Pending" 
                                     : "Completed"
-                    };
+                    }
                 }
                 return task;
             })
@@ -58,7 +58,7 @@ function Dashboard(props) {
             </div>
 
         </main>
-    )
+    );
 }
 
 export default Dashboard;

@@ -6,6 +6,7 @@ const app = express()
 
 
 app.use(cors())
+app.use(express.json())
 
 const tasks =[
     {
@@ -24,6 +25,11 @@ const tasks =[
               title:"Learn MongoDB",
               description:"Understanding Databases",
               status: "Pending"
+          },
+          {   id:4,
+              title:"Learn Node.js",
+              description:"Understanding Javascript",
+              status: "Pending"
           }
 ];
 
@@ -31,6 +37,13 @@ const tasks =[
 app.get("/api/tasks", (req, res) => {
     res.json(tasks)
 })
+
+app.post("/api/tasks",(req,res)=>{
+    const newTask = req.body
+    tasks.push(newTask)
+    res.json(newTask)
+})
+
 
 app.get("/", (req, res) => {
     res.send("Backend is Working!!")
