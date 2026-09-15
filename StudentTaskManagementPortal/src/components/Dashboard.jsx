@@ -54,11 +54,11 @@ function Dashboard(props) {
                         onToggle={()=>toggleTask(task.id)} 
                         onDelete={()=>deleteTask(task.id)}
                     />
-                ))}
+                ))};
             </div>
 
         </main>
-    );
+    )
 }
 
 export default Dashboard;
